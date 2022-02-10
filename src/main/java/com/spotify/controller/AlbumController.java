@@ -8,7 +8,6 @@ import com.spotify.dto.response.AlbumResponseType;
 import com.spotify.dto.response.AlbumSongResponseType;
 import com.spotify.service.AlbumService;
 import com.spotify.service.impl.FileStorageServiceImpl;
-import com.spotify.ultils.GenericsHelper;
 import com.spotify.ultils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

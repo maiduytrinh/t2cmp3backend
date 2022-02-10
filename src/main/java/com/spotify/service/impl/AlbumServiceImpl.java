@@ -94,7 +94,7 @@ public class AlbumServiceImpl implements AlbumService {
             pageable = PageRequest.of(request.getPage() - 1, request.getSize(), Sort.by(request.getField()).descending());
         }
         Page<Albums> albumsPage = albumRepository.paginationAlbum(pageable, request.getSearch());
-        List<AlbumResponseType> albumResponseTypes = albumsPage.toList().stream().map(albums -> albumConverter.convertToDTO(albums)).collect(Collectors.toList());
+        List<AlbumResponseType> albumResponseTypes = albumsPage.toList().stream().map(albums -> albumConverter.convertToAllDependency(albums)).collect(Collectors.toList());
         result.put("albums", albumResponseTypes);
         result.put("totalPages", albumsPage.getTotalPages());
         result.put("totalElements", albumsPage.getTotalElements());
@@ -119,8 +119,10 @@ public class AlbumServiceImpl implements AlbumService {
             albums.setArtistAlbums(albumsUpdate.getArtistAlbums());
             albums.setGenres(albumsUpdate.getGenres());
             albums.setAlbumName(albumsUpdate.getAlbumName());
-            albums.setTotalListen(albumsUpdate.getTotalListen());
-            albums.setImage(albumsUpdate.getImage());
+            // albums.setTotalListen(albumsUpdate.getTotalListen());
+            if(!StringUtils.isEmpty(albumsUpdate.getImage())){
+                albums.setImage(albumsUpdate.getImage());
+            }
             albums.setArtistAlbums(albumsUpdate.getArtistAlbums());
             albums.setAlbumSongs(albumsUpdate.getAlbumSongs());
             Albums albumsSave = albumRepository.save(albums);

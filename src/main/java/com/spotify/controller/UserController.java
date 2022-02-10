@@ -16,24 +16,24 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/users")
 public class UserController {
     private UserService userService;
-    private  FileStorageServiceImpl fileStorageService;
+    // private  FileStorageServiceImpl fileStorageService;
     @Autowired
     public UserController(UserService userService, FileStorageServiceImpl fileStorageService) {
         this.userService = userService;
-        this.fileStorageService = fileStorageService;
+        // this.fileStorageService = fileStorageService;
     }
     @PostMapping("/save")
     public ResponseEntity<UserResponseType> saveUser(@RequestParam("user") String userJson,
                                                      @RequestParam(value = "image",required = false)MultipartFile image) throws JsonProcessingException {
-        String imageUrl = "";
+        // String imageUrl = "";
         ResponseEntity<UserResponseType> pResponse;
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         UserResponseType userResponseType = mapper.readValue(userJson,UserResponseType.class);
-        if(null != image){
-            imageUrl = fileStorageService.storeFile(image);
-            userResponseType.setAvatar(imageUrl);
-        }
+        // if(null != image){
+        //     imageUrl = fileStorageService.storeFile(image);
+        //     userResponseType.setAvatar(imageUrl);
+        // }
         pResponse = new ResponseEntity<>( userService.saveUser(userResponseType), HttpStatus.OK);
         return pResponse;
     }
@@ -44,6 +44,12 @@ public class UserController {
         mapper.registerModule(new JavaTimeModule());
         UserResponseType userResponseType = mapper.readValue(userJson,UserResponseType.class);
         pResponse = new ResponseEntity<>( userService.saveUser(userResponseType), HttpStatus.OK);
+        return pResponse;
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<UserResponseType> findByIdSong(@PathVariable("email") String email) throws JsonProcessingException {
+        ResponseEntity<UserResponseType> pResponse = new ResponseEntity<>(userService.loadUserByEmail(email), HttpStatus.OK);
         return pResponse;
     }
 }

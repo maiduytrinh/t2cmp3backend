@@ -12,7 +12,11 @@ public interface SongService extends BaseService<SongResponseType, Integer> {
     SongResponseType saveSong(SongResponseType songResponseType);
 
     List<SongResponseType> getTop10SongsPopular();
+    
+    List<SongResponseType> getTop30SongsPopular();
 
     boolean deleteListSong(List<Integer> listSongIds);
+
+    void updateCountListenSong(int songId);
 
 }

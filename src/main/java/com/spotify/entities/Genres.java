@@ -24,5 +24,6 @@ public class Genres {
     private String image;
     @OneToMany(mappedBy = "genres")
     private List<Albums> albums;
-
+    @OneToMany(mappedBy = "genres")
+    private List<Songs> songs;
 }

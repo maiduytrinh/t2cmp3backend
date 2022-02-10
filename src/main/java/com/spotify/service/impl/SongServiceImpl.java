@@ -150,6 +150,13 @@ public class SongServiceImpl implements SongService {
         return songResponseTypes;
     }
 
+    @Override
+    public List<SongResponseType> getTop30SongsPopular() {
+        List<Songs> list30BestSongs = songRepository.getTop30SongPopular();
+        List<SongResponseType> songResponseTypes = list30BestSongs.stream().map(songs -> songConverter.convertToDTO(songs)).collect(Collectors.toList());
+        return songResponseTypes;
+    }
+
     @Transactional
     @Override
     public boolean deleteListSong(List<Integer> listSongIds) {
@@ -166,5 +173,10 @@ public class SongServiceImpl implements SongService {
             });
         }
         return false;
+    }
+
+    @Override
+    public void updateCountListenSong(int songId) {      
+        songRepository.updateCountListen(songId);
     }
 }

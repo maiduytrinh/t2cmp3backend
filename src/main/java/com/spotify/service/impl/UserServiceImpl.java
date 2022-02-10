@@ -32,39 +32,44 @@ public class UserServiceImpl implements UserService {
         UserResponseType response;
         if(null != userResponseType.getId() && usersOptional.get() != null){
             Users userSave = usersOptional.get();
-            if(userSave.getAvatar() != user.getAvatar()){
-                userSave.setAvatar(user.getAvatar());
-            }
+            // if(userSave.getAvatar() != user.getAvatar()){
+            //     userSave.setAvatar(user.getAvatar());
+            // }
             if(userSave.getEmail() != user.getEmail()){
                 userSave.setEmail(user.getEmail());
             }
-            if(userSave.getActiveStatus() != user.getActiveStatus()){
-                userSave.setActiveStatus(user.getActiveStatus());
-            }
-            if(userSave.getBirthDay() != user.getBirthDay()){
-                userSave.setBirthDay(user.getBirthDay());
-            }
+            // if(userSave.getActiveStatus() != user.getActiveStatus()){
+            //     userSave.setActiveStatus(user.getActiveStatus());
+            // }
+            // if(userSave.getBirthDay() != user.getBirthDay()){
+            //     userSave.setBirthDay(user.getBirthDay());
+            // }
             if(user.getPassword() != null){
                 if(bCryptPasswordEncoder.matches(userSave.getPassword(),bCryptPasswordEncoder.encode(user.getPassword()))){
                     userSave.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 }
             }
-            if(userSave.getPhoneNumber() != user.getPhoneNumber()){
-                userSave.setPhoneNumber(user.getPhoneNumber());
-            }
-            if(userSave.getLastName() != user.getLastName()){
-                userSave.setLastName(user.getLastName());
-            }
-            if(userSave.getFirstName() != user.getFirstName()){
-                userSave.setFirstName(user.getFirstName());
+            // if(userSave.getPhoneNumber() != user.getPhoneNumber()){
+            //     userSave.setPhoneNumber(user.getPhoneNumber());
+            // }
+            if(userSave.getFullName() != user.getFullName()){
+                userSave.setFullName(user.getFullName());
             }
             Users userUpdate = userRepository.save(userSave);
             response = userConverter.convertToDTO(userUpdate);
         }else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setRoles(roleRepository.getById(Constraints.ROLE_USER_ID));
             Users userSave = userRepository.save(user);
             response = userConverter.convertToDTO(userSave);
         }
+        return response;
+    }
+    @Override
+    public UserResponseType loadUserByEmail(String email) {
+        UserResponseType response;
+        Users user = userRepository.loadUser(email);
+        response = userConverter.convertToDTO(user);
         return response;
     }
 }

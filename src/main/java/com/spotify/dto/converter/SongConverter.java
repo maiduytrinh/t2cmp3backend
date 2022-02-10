@@ -22,6 +22,28 @@ public class SongConverter {
     @Autowired
     private GenresConverter genresConverter;
 
+    public SongResponseType convertToDTONew(Songs songs){
+        SongResponseType songResponseType = new SongResponseType();
+        songResponseType.setTitle(songs.getTitle());
+        songResponseType.setMediaUrl(songs.getMediaUrl());
+        songResponseType.setImage(songs.getImage());
+        songResponseType.setCountListen(songs.getCountListen());
+        songResponseType.setLyrics(songs.getLyrics());
+        songResponseType.setId(songs.getId());
+        songResponseType.setTimePlay(songs.getTimePlay());
+        List<ArtistSongResponseType> artistSongResponseTypes = new ArrayList<>();
+        List<ArtistSongs> artistSongs = songs.getArtistSongs();
+        if (null != artistSongs) {
+            artistSongs.forEach(item -> {
+                ArtistSongResponseType artistSongResponseType = new ArtistSongResponseType();
+                artistSongResponseType.setArtists(artistConverter.convertToDTO(item.getArtistSongId().getArtists()));
+                artistSongResponseTypes.add(artistSongResponseType);
+            });
+        }
+        songResponseType.setArtistSongs(artistSongResponseTypes);
+        return songResponseType;
+    }
+
     public SongResponseType convertToDTO(Songs songs) {
         SongResponseType songResponseType = new SongResponseType();
         songResponseType.setMediaUrl(songs.getMediaUrl());

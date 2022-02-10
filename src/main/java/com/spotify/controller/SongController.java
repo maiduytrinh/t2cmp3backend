@@ -112,6 +112,14 @@ public class SongController {
         return pResponse;
     }
 
+    @GetMapping("/top30")
+    public ResponseEntity<List<SongResponseType>> getTop30BestSong() throws JsonProcessingException {
+        ResponseEntity<List<SongResponseType>> pResponse;
+        List<SongResponseType> list = songService.getTop30SongsPopular();
+        pResponse = new ResponseEntity<>(list, HttpStatus.OK);
+        return pResponse;
+    }
+
     @PostMapping("/delete")
     public ResponseEntity<HttpStatus> deleteListSong(@RequestBody List<Integer> listSongId) {
         boolean isDelete = songService.deleteListSong(listSongId);
@@ -119,5 +127,10 @@ public class SongController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @PutMapping("/update-listen/{songId}")
+    public void updateCountListen(@PathVariable("songId") int songId) {
+        songService.updateCountListenSong(songId);
     }
 }

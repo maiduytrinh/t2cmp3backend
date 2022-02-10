@@ -19,26 +19,24 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "username")
-    private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "firstName")
-    private String firstName;
-    @Column(name = "lastName")
-    private String lastName;
-    @Column(name = "gender")
-    private boolean gender;
-    @Column(name = "birth_day")
-    private LocalDate birthDay;
-    @Column(name = "active_status")
-    private int activeStatus;
+    @Column(name = "full_name")
+    private String fullName;
+    // @Column(name = "lastName")
+    // private String lastName;
+    // @Column(name = "gender")
+    // private boolean gender;
+    // @Column(name = "birth_day")
+    // private LocalDate birthDay;
+    // @Column(name = "active_status")
+    // private int activeStatus;
     @Column(name = "email")
     private String email;
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    @Column(name = "avatar")
-    private String avatar;
+    // @Column(name = "phone_number")
+    // private String phoneNumber;
+    // @Column(name = "avatar")
+    // private String avatar;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roles_id")
     private Roles roles;

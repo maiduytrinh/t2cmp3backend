@@ -4,4 +4,6 @@ import com.spotify.dto.response.UserResponseType;
 
 public interface UserService {
     UserResponseType saveUser(UserResponseType userResponseType);
+
+    UserResponseType loadUserByEmail(String email);
 }

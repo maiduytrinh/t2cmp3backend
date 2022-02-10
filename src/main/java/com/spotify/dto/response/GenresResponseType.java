@@ -16,4 +16,5 @@ public class GenresResponseType {
     private String genresName;
     private String image;
     private List<AlbumResponseType> albums;
+    private List<SongResponseType> songs;
 }

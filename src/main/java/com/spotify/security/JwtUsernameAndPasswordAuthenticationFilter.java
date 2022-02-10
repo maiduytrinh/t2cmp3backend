@@ -65,8 +65,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 				.compact();
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() +" "+ token);
 		response.setStatus(200);
-		response.addHeader("Access-Control-Expose-Headers", jwtConfig.getHeader());
 		response.addHeader("roll",s.get(0));
+		response.addHeader("Access-Control-Expose-Headers", "Authorization, roll");
 	}
 
 	private static class UserCredentials {

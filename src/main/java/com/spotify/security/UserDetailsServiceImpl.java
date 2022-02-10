@@ -23,17 +23,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private BCryptPasswordEncoder encoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Users users = userRepository.getByUsername(username);
+        Users users = userRepository.loadUser(email);
         if (users != null) {
 
             List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                     .commaSeparatedStringToAuthorityList("ROLE_"+users.getRoles().getRoleName());
-            User user = new User(users.getUsername(), users.getPassword(), grantedAuthorities);
+            User user = new User(users.getEmail(), users.getPassword(), grantedAuthorities);
             return user;
 
         }
-        throw new UsernameNotFoundException("Username: " + username + " not found");
+        throw new UsernameNotFoundException("Username: " + email + " not found");
     }
 }

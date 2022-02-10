@@ -15,16 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 public class UserResponseType {
     private Integer id;
-    private String username;
     private String password;
-    private String firstName;
-    private String lastName;
-    private String avatar;
-    private boolean gender;
-    private LocalDate birthDay;
-    private int activeStatus;
+    private String fullName;
+    // private String avatar;
+    // private boolean gender;
+    // private LocalDate birthDay;
+    // private int activeStatus;
     private String email;
-    private String phoneNumber;
+    // private String phoneNumber;
     private Roles roles;
     private List<UserFileResponseType> userFiles;
     private List<HistoryListenResponseType> historyListens;
